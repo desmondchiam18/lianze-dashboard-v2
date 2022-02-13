@@ -186,11 +186,6 @@
 
 </script>
 
-
-
-
-
-
 <div class="container">
     <h1>My Dashboard</h1>
  <table class="table text-center table-striped table caption-top">
