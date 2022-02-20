@@ -184,6 +184,35 @@
 	],
   };
 
+  function addTimeSlot(day){
+	   if (day --- "Monday"){
+	   timetable.Monday = [
+         ...timetable.Monday,
+         { name: "??", period: 1, style: "" }
+       ];
+	   } else if (day --- "Tuesday"){
+	   timetable.Tuesday = [
+         ...timetable.Tuesday,
+         { name: "??", period: 1, style: "" }
+       ];
+	   } else if (day --- "Wednesday"){
+	   timetable.Wednesday = [
+         ...timetable.Wednesday,
+         { name: "??", period: 1, style: "" }
+       ];
+	   } else if (day --- "Thursday"){
+	   timetable.Thursday = [
+         ...timetable.Thursday,
+         { name: "??", period: 1, style: "" }
+       ];
+	   } else if (day --- "Friday"){
+	   timetable.Friday = [
+         ...timetable.Friday,
+         { name: "??", period: 1, style: "" }
+       ];
+	   }
+    }
+
 </script>
 
 <div class="container">
@@ -215,8 +244,8 @@
                 {timeSlot.name}
              </button>
           </td>
-          
         {/each}
+		<td><button class="btn" on:click={() => addTimeSlot("Monday")}>+</button></td>
       </tr>
       <tr>
         <th scope="row" class="table-dark">TUE</th>
@@ -226,8 +255,8 @@
                 {timeSlot.name}
              </button>
           </td>
-          
         {/each}
+		<td><button class="btn" on:click={() => addTimeSlot("Tuesday")}>+</button></td>
       </tr>
       <tr>
         <th scope="row" class="table-dark">WED</th>
@@ -236,9 +265,9 @@
             <button class="btn" type="button">
                 {timeSlot.name}
              </button>
-          </td>
-          
+          </td> 
         {/each}
+		<td><button class="btn" on:click={() => addTimeSlot("Wednesday")}>+</button></td>
       </tr>
       <tr>
         <th scope="row" class="table-dark">THU</th>
@@ -248,8 +277,8 @@
                 {timeSlot.name}
              </button>
           </td>
-         
         {/each}
+		<td><button class="btn" on:click={() => addTimeSlot("Thursday")}>+</button></td>
       </tr>
       <tr>
         <th scope="row" class="table-dark">FRI</th>
@@ -259,8 +288,8 @@
                 {timeSlot.name}
              </button>
           </td>
-         
         {/each}
+		<td><button class="btn" on:click={() => addTimeSlot("Friday")}>+</button></td>
       </tr>
     </tbody>
  </table>
