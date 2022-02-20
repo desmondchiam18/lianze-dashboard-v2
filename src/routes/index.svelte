@@ -185,33 +185,39 @@
   };
 
   function addTimeSlot(day){
-	   if (day --- "Monday"){
+	   if (day === "Monday"){
 	   timetable.Monday = [
          ...timetable.Monday,
          { name: "??", period: 1, style: "" }
        ];
-	   } else if (day --- "Tuesday"){
+	   } else if (day === "Tuesday"){
 	   timetable.Tuesday = [
          ...timetable.Tuesday,
          { name: "??", period: 1, style: "" }
        ];
-	   } else if (day --- "Wednesday"){
+	   } else if (day === "Wednesday"){
 	   timetable.Wednesday = [
          ...timetable.Wednesday,
          { name: "??", period: 1, style: "" }
        ];
-	   } else if (day --- "Thursday"){
+	   } else if (day === "Thursday"){
 	   timetable.Thursday = [
          ...timetable.Thursday,
          { name: "??", period: 1, style: "" }
        ];
-	   } else if (day --- "Friday"){
+	   } else if (day === "Friday"){
 	   timetable.Friday = [
          ...timetable.Friday,
          { name: "??", period: 1, style: "" }
        ];
 	   }
     }
+
+	let curDay;
+    let curIndex;
+    let curName;
+    let curPeriod;
+    let curStyle;
 
 </script>
 
@@ -240,7 +246,7 @@
         <th scope="row" class="table-dark">MON</th>
         {#each timetable.Monday as timeSlot}
           <td colspan= {timeSlot.period} class= {timeSlot.style}>
-            <button class="btn" type="button">
+            <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#EditModal">
                 {timeSlot.name}
              </button>
           </td>
@@ -251,7 +257,7 @@
         <th scope="row" class="table-dark">TUE</th>
         {#each timetable.Tuesday as timeSlot}
           <td colspan= {timeSlot.period} class= {timeSlot.style}>
-            <button class="btn" type="button">
+            <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#EditModal">
                 {timeSlot.name}
              </button>
           </td>
@@ -262,7 +268,7 @@
         <th scope="row" class="table-dark">WED</th>
         {#each timetable.Wednesday as timeSlot}
           <td colspan= {timeSlot.period} class= {timeSlot.style}>
-            <button class="btn" type="button">
+            <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#EditModal">
                 {timeSlot.name}
              </button>
           </td> 
@@ -273,7 +279,7 @@
         <th scope="row" class="table-dark">THU</th>
         {#each timetable.Thursday as timeSlot}
           <td colspan= {timeSlot.period} class= {timeSlot.style}>
-            <button class="btn" type="button">
+            <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#EditModal">
                 {timeSlot.name}
              </button>
           </td>
@@ -284,7 +290,7 @@
         <th scope="row" class="table-dark">FRI</th>
         {#each timetable.Friday as timeSlot}
           <td colspan= {timeSlot.period} class= {timeSlot.style}>
-            <button class="btn" type="button">
+            <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#EditModal">
                 {timeSlot.name}
              </button>
           </td>
@@ -294,3 +300,42 @@
     </tbody>
  </table>
 </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="EditModalLabel">Edit Time Slot</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<div class="input-group mb-3">
+				<span class="input-group-text" id="name">Name</span>
+				<input type="text" class="form-control">
+			</div>
+			<div class="input-group mb-3">
+				<span class="input-group-text" id="period">Period</span>
+				<input type="number" class="form-control">
+			</div>
+			<div class="input-group mb-3">
+				<span class="input-group-text" for="inputGroupSelect01">Style</span>
+				<select class="form-select" id="inputGroupSelect01">
+                   <option value="">Default</option>
+                   <option value="table-primary">Blue</option>
+				   <option value="table-success">Green</option>
+				   <option value="table-danger">Red</option>
+				   <option value="table-warning">Yellow</option>
+				   <option value="table-secondary">Grey</option>
+				</select>
+			</div>
+			  
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary">Cancel</button>
+		  <button type="button" class="btn btn-danger">Delete</button>
+		  <button type="button" class="btn btn-primary">Save changes</button>
+		</div>
+	  </div>
+	</div>
+  </div>
