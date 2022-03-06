@@ -12,177 +12,13 @@
    	 if (error) alert(error.message); // alert if error
     }
     let timetable = {
-	Monday: [
-  	{
-    	name: "PH",
-    	period: 1,
-    	style: "",
-  	},
-  	{
-    	name: "PM",
-    	period: 1,
-    	style: "",
-  	},
-  	{
-    	name: "BI",
-    	period: 2,
-    	style: "",
-  	},
-  	{
-    	name: "R",
-    	period: 1,
-    	style: "table-success",
-  	},
-  	{
-    	name: "BM",
-    	period: 2,
-    	style: "",
-  	},
-  	{
-    	name: "M3",
-    	period: 2,
-    	style: "",
-  	},
-  	{
-    	name: "BC",
-    	period: 2,
-    	style: "",
-  	},
-	],
-	Tuesday: [
-  	{
-    	name: "PJPK",
-    	period: 1,
-    	style: "",
-  	},
-  	{
-    	name: "M3",
-    	period: 2,
-    	style: "",
-  	},
-  	{
-    	name: "BI",
-    	period: 1,
-    	style: "",
-  	},
-  	{
-    	name: "E",
-    	period: 1,
-    	style: "table-success",
-  	},
-  	{
-    	name: "BM",
-    	period: 2,
-    	style: "",
-  	},
-  	{
-    	name: "BC",
-    	period: 3,
-    	style: "",
-  	},
-  	{
-    	name: "PJPK",
-    	period: 1,
-    	style: "",
-  	},
-	],
-	Wednesday: [
-  	{
-    	name: "BC",
-    	period: 3,
-    	style: "",
-  	},
-  	{
-    	name: "PM",
-    	period: 1,
-    	style: "",
-  	},
-  	{
-    	name: "H",
-    	period: 1,
-    	style: "table-success",
-  	},
-  	{
-    	name: "PKS",
-    	period: 3,
-    	style: "",
-  	},
-  	{
-    	name: "BM",
-    	period: 2,
-    	style: "",
-  	},
-	],
-	Thursday: [
-  	{
-    	name: "SA",
-    	period: 1,
-    	style: "",
-  	},
-  	{
-    	name: "PJPK",
-    	period: 1,
-    	style: "",
-  	},
-  	{
-    	name: "BM",
-    	period: 2,
-    	style: "",
-  	},
-  	{
-    	name: "A",
-    	period: 1,
-    	style: "table-success",
-  	},
-  	{
-    	name: "PM",
-    	period: 1,
-    	style: "",
-  	},
-  	{
-    	name: "BC",
-    	period: 2,
-    	style: "",
-  	},
-  	{
-    	name: "M3",
-    	period: 2,
-    	style: "",
-  	},
-	],
-	Friday: [
-  	{
-    	name: "BI",
-    	period: 2,
-    	style: "",
-  	},
-  	{
-    	name: "BM",
-    	period: 2,
-    	style: "",
-  	},
-  	{
-    	name: "T",
-    	period: 1,
-    	style: "table-success",
-  	},
-  	{
-    	name: "BC",
-    	period: 2,
-    	style: "",
-  	},
-  	{
-    	name: "PM",
-    	period: 1,
-    	style: "",
-  	},
-  	{
-    	name: "SA",
-    	period: 2,
-    	style: "",
-  	},
-	],
-  };
+	  Monday: [],
+	  Tuesday: [],
+	  Wednesday: [],
+	  Thursday: [],
+	  Friday: [],
+    };
+
 
   function addTimeSlot(day){
 	   if (day === "Monday"){
@@ -251,8 +87,64 @@
   		timetable.Friday.splice(index, 1);
   		timetable = timetable;
 		}
-
+        saveEntry()
 	}
+
+	function setTimeSlot(day,index,newName,newPeriod,newStyle){
+		if (day === "Monday"){
+			timetable.Monday[index].name = newName;
+			timetable.Monday[index].period = newPeriod;
+			timetable.Monday[index].style = newStyle;
+		}
+
+		else if (day === "Tuesday"){
+			timetable.Tuesday[index].name = newName;
+			timetable.Tuesday[index].period = newPeriod;
+			timetable.Tuesday[index].style = newStyle;
+		}
+
+		else if (day === "Wednesday"){
+			timetable.Wednesday[index].name = newName;
+			timetable.Tuesday[index].period = newPeriod;
+			timetable.Tuesday[index].style = newStyle;
+		}
+
+		else if (day === "Wednesday"){
+			timetable.Wednesday[index].name = newName;
+			timetable.Wednesday[index].period = newPeriod;
+			timetable.Wednesday[index].style = newStyle;
+		}
+
+		else if (day === "Friday"){
+			timetable.Friday[index].name = newName;
+			timetable.Friday[index].period = newPeriod;
+			timetable.Friday[index].style = newStyle;
+		}
+		saveEntry()
+	}
+
+	// Upsert entry
+	async function saveEntry() {
+	const { error } = await supabase.from("studentEntries").upsert(
+		{
+		user_id: supabase.auth.user().id,
+		timetable: timetable,
+		},
+		{ onConflict: "user_id" }
+	);
+	if (error) alert(error.message);
+	}
+    
+	async function getEntries() {
+	const { data, error } = await supabase.from("studentEntries").select();
+	if (error) alert(error.message);
+
+	  if (data != "") {
+		 timetable = data[0].timetable;
+	  }
+	}
+
+    getEntries();
 
 </script>
 
@@ -403,8 +295,8 @@
 		</div>
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-		  <button type="button" class="btn btn-danger" on:click={() => deleteTimeSlot(curDay, curIndex)}>Delete</button>
-		  <button type="button" class="btn btn-primary">Save changes</button>
+		  <button type="button" class="btn btn-danger" data-bs-dismiss="modal" on:click={() => deleteTimeSlot(curDay, curIndex)}>Delete</button>
+		  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" on:click={() => setTimeSlot(curDay, curIndex, curName, curPeriod, curStyle)}>Save changes</button>
 		</div>
 	  </div>
 	</div>
